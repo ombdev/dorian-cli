@@ -1,0 +1,54 @@
+<p>
+  factura-form works!, {{factura.rfc}}, {{factura.email}}
+</p>
+<form #facturaForm="ngForm" (ngSubmit)="onSubmit(facturaForm)" novalidate>
+  <table>
+    <thead>
+      <tr>
+        <th>Clave Prod</th>
+        <th>Descripción</th>
+        <th>Cantidad</th>
+        <th>Precio Unitario</th>
+        <th>Impuesto</th>
+        <th>Importe</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of factura.items; index as i;">
+        <td>
+          <input type="text" name="cveProducto{{item.idRandom}}" [(ngModel)]="item.cveProducto">
+        </td>
+        <td>
+          <input type="text" name="descripcion{{item.idRandom}}" [(ngModel)]="item.descripcion">
+        </td>
+        <td>
+          <input type="number" name="cantidad{{item.idRandom}}" [(ngModel)]="item.cantidad">
+        </td>
+        <td>
+          <input type="number" name="precioUnit{{item.idRandom}}" [(ngModel)]="item.precioUnit">
+        </td>
+        <td>
+          <!-- <input type="text" name="impuesto{{item.idRandom}}" [(ngModel)]="item.impuesto"> -->
+          <select name="impuesto{{item.idRandom}}" [(ngModel)]="item.impuesto">
+            <option value="IVA_0">IVA 0%</option>
+            <option value="IVA_16">IVA 16%</option>
+          </select>
+        </td>
+        <td>
+          {{item.importe}}
+        </td>
+        <td>
+          <button type="button" (click)="onBorrarLinea(i)" class="button small">Borrar</button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>
+          <button type="button" (click)="onAgregarLinea()" class="button small">Agregar linea</button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  <button type="submit">Guardar factura</button>
+</form>
